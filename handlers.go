@@ -35,3 +35,29 @@ func handleExhaustFan(conn *lip.LIPConn, c chan *lip.LIPMessage) {
 		}
 	}
 }
+
+func handleBedroomPico(conn *lip.LIPConn, c chan *lip.LIPMessage) {
+	for {
+		m := <-c
+		if m.Params == nil {
+			fmt.Printf("no params: %s", m)
+			continue
+		}
+		if len(m.Params) != 2 {
+			fmt.Printf("wrong number of params: %s", m)
+			continue
+		}
+		if m.Params[0] == "4" && m.Params[1] == "3" {
+			select {
+			case <-time.After(3 * time.Second):
+				conn.IssueCommand(&lip.LIPMessage{
+					Operation: lip.Execute,
+					CmdType:   lip.Device,
+					ID:        "1",
+					Params:    []string{"9", "3"},
+				})
+			case <-c:
+			}
+		}
+	}
+}

@@ -5,7 +5,6 @@ import (
 )
 
 func Start(host, user, pass string) {
-
 	conn, err := lip.New(host, user, pass)
 	if err != nil {
 		panic(err)
@@ -15,6 +14,12 @@ func Start(host, user, pass string) {
 		Op:      lip.Monitor,
 		CmdType: lip.Output,
 		ID:      "9",
+	}))
+
+	go handleBedroomPico(conn, conn.RegisterObserver(lip.Registration{
+		Op:      lip.Monitor,
+		CmdType: lip.Device,
+		ID:      "4",
 	}))
 
 	<-make(chan struct{})

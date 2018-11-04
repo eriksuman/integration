@@ -55,12 +55,15 @@ func (l *LIPConn) IssueCommand(m *LIPMessage) {
 }
 
 func (l *LIPConn) listen() {
+	fmt.Println("listening")
 	for {
 		msg, err := l.read()
 		if err != nil {
 			fmt.Println(err)
 			continue
 		}
+
+		fmt.Println(msg)
 
 		r := Registration{
 			Op:      msg.Operation,
@@ -105,12 +108,12 @@ func (l *LIPConn) read() (*LIPMessage, error) {
 }
 
 func login(conn net.Conn, u, p string) error {
-	_, err := conn.Write([]byte(u))
+	_, err := conn.Write([]byte(u + "\r\n"))
 	if err != nil {
 		return err
 	}
 
-	_, err = conn.Write([]byte(p))
+	_, err = conn.Write([]byte(p + "\r\n"))
 	return err
 }
 
