@@ -16,6 +16,12 @@ func Start(host, user, pass string) {
 		ID:      "9",
 	}))
 
+	go handleHeater(conn, conn.RegisterObserver(lip.Registration{
+		Op:      lip.Monitor,
+		CmdType: lip.Output,
+		ID:      "10",
+	}))
+
 	go handleBedroomPico(conn, conn.RegisterObserver(lip.Registration{
 		Op:      lip.Monitor,
 		CmdType: lip.Device,
