@@ -25,7 +25,7 @@ func Start(host, user, pass string) {
 	go handleBedroomPico(conn, conn.RegisterObserver(lip.Registration{
 		Op:      lip.Monitor,
 		CmdType: lip.Device,
-		ID:      "4",
+		ID:      "14",
 	}))
 
 	<-make(chan struct{})

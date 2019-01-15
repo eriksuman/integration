@@ -94,21 +94,21 @@ func handleBedroomPico(conn *lip.LIPConn, c chan *lip.LIPMessage) {
 		}
 
 		switch m.Params[1] {
-		case "5":
+		case "3":
 			conn.IssueCommand(&lip.LIPMessage{
 				Operation: lip.Execute,
 				CmdType:   lip.Device,
 				ID:        "1",
-				Params:    []string{"9", "3"},
+				Params:    []string{"4", "3"},
 			})
 		case "4":
 			conn.IssueCommand(&lip.LIPMessage{
 				Operation: lip.Execute,
 				CmdType:   lip.Output,
-				ID:        "15",
+				ID:        "12",
 				Params:    []string{"1", "0"},
 			})
 		}
-
 	}
+
 }
